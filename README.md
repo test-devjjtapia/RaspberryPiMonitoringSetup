@@ -1,14 +1,14 @@
-# 馃崜 Raspberry Pi Monitoring Setup
+#  Raspberry Pi Monitoring Setup
 
 Script automatizado para instalar y configurar Grafana y Node Exporter en Raspberry Pi para monitoreo del sistema.
 
-## 馃搵 Descripci贸n
+##  Descripción
 
-Este script bash automatiza la instalaci贸n de:
-- **Grafana**: Plataforma de visualizaci贸n y monitoreo
-- **Node Exporter**: Exportador de m茅tricas del sistema para Prometheus
+Este script bash automatiza la instalación de:
+- **Grafana**: Plataforma de visualización y monitoreo
+- **Node Exporter**: Exportador de métricas del sistema para Prometheus
 
-## 馃敡 Requisitos Previos
+##  Requisitos Previos
 
 - Raspberry Pi con Raspbian/Raspberry Pi OS
 - Arquitectura ARM64
@@ -16,9 +16,9 @@ Este script bash automatiza la instalaci贸n de:
 - Permisos de administrador (sudo)
 - Al menos 1GB de espacio libre en disco
 
-## 馃摜 Instalaci贸n
+##  Instalación
 
-### Opci贸n 1: Descarga directa
+### Opción 1: Descarga directa
 ```bash
 # Descargar el script
 curl -O https://raw.githubusercontent.com/tu-usuario/tu-repo/main/raspberrypi_monitoring_fixed_v2.sh
@@ -30,7 +30,7 @@ chmod +x raspberrypi_monitoring_fixed_v2.sh
 ./raspberrypi_monitoring_fixed_v2.sh
 ```
 
-### Opci贸n 2: Clonar repositorio
+### Opción 2: Clonar repositorio
 ```bash
 git clone https://github.com/tu-usuario/tu-repo.git
 cd tu-repo
@@ -38,34 +38,34 @@ chmod +x raspberrypi_monitoring_fixed_v2.sh
 ./raspberrypi_monitoring_fixed_v2.sh
 ```
 
-## 馃殌 Qu茅 hace el script
+##  Qué hace el script
 
 1. **Actualiza el sistema** y instala dependencias necesarias
 2. **Configura el repositorio de Grafana** con las claves GPG correspondientes
 3. **Instala Grafana** desde el repositorio oficial
 4. **Configura Grafana** como servicio systemd
-5. **Descarga e instala Node Exporter** (versi贸n 1.8.0 para ARM64)
+5. **Descarga e instala Node Exporter** (versión 1.8.0 para ARM64)
 6. **Crea usuario dedicado** para Node Exporter
 7. **Configura Node Exporter** como servicio systemd
-8. **Valida la instalaci贸n** de ambos servicios
+8. **Valida la instalación** de ambos servicios
 
-## 馃寪 Acceso a los Servicios
+##  Acceso a los Servicios
 
-Una vez completada la instalaci贸n:
+Una vez completada la instalación:
 
 ### Grafana
 - **URL**: `http://192.168.1.113:3000`
 - **Usuario**: `admin`
-- **Contrase帽a**: `admin`
+- **Contraseña**: `admin`
 
 ### Node Exporter
-- **M茅tricas**: `http://192.168.1.113:9100/metrics`
+- **Métricas**: `http://192.168.1.113:9100/metrics`
 
 > **Nota**: Cambia `192.168.1.113` por la IP real de tu Raspberry Pi
 
-## 馃攳 Verificaci贸n
+##  Verificación
 
-Para verificar que los servicios est谩n funcionando:
+Para verificar que los servicios están funcionando:
 
 ```bash
 # Estado de Grafana
@@ -75,13 +75,13 @@ sudo systemctl status grafana-server
 sudo systemctl status node_exporter
 ```
 
-## 馃搳 Configuraci贸n Posterior
+##  Configuración Posterior
 
 ### Configurar Grafana
 
 1. Accede a Grafana en tu navegador
-2. Inicia sesi贸n con admin/admin
-3. Cambia la contrase帽a cuando se te solicite
+2. Inicia sesión con admin/admin
+3. Cambia la contraseña cuando se te solicite
 4. Configura Prometheus como fuente de datos:
    - URL: `http://localhost:9090` (si tienes Prometheus instalado)
    - Para usar solo Node Exporter: `http://localhost:9100`
@@ -92,7 +92,7 @@ sudo systemctl status node_exporter
 - **Raspberry Pi Monitoring**: ID 10578
 - **System Overview**: ID 405
 
-## 馃洜锔?Comandos 脷tiles
+## Comandos Utiles
 
 ```bash
 # Reiniciar servicios
@@ -108,30 +108,30 @@ sudo systemctl stop grafana-server
 sudo systemctl stop node_exporter
 ```
 
-## 馃敡 Personalizaci贸n
+##  Personalización
 
-### Cambiar configuraci贸n de Grafana
+### Cambiar configuración de Grafana
 
-El archivo de configuraci贸n se encuentra en:
+El archivo de configuración se encuentra en:
 ```
 /etc/grafana/grafana.ini
 ```
 
-### Configuraci贸n de Node Exporter
+### Configuración de Node Exporter
 
-Para personalizar las m茅tricas de Node Exporter, edita el archivo de servicio:
+Para personalizar las métricas de Node Exporter, edita el archivo de servicio:
 ```bash
 sudo nano /etc/systemd/system/node_exporter.service
 ```
 
-## 馃悰 Soluci贸n de Problemas
+##  Solución de Problemas
 
 ### Grafana no inicia
 ```bash
 # Verificar logs
 sudo journalctl -u grafana-server --no-pager
 
-# Verificar configuraci贸n
+# Verificar configuración
 sudo grafana-cli admin reset-admin-password newpassword
 ```
 
@@ -153,20 +153,20 @@ netstat -tulpn | grep -E "(3000|9100)"
 sudo ufw status
 ```
 
-## 馃摑 Notas
+##  Notas
 
-- El script est谩 optimizado para Raspberry Pi con arquitectura ARM64
-- Se recomienda cambiar la contrase帽a por defecto de Grafana
+- El script está optimizado para Raspberry Pi con arquitectura ARM64
+- Se recomienda cambiar la contraseña por defecto de Grafana
 - Node Exporter ejecuta en el puerto 9100 por defecto
 - Grafana ejecuta en el puerto 3000 por defecto
 
-## 馃摎 Enlaces 脷tiles
+##  Enlaces Utiles
 
-- [Documentaci贸n oficial de Grafana](https://grafana.com/docs/)
-- [Documentaci贸n de Node Exporter](https://github.com/prometheus/node_exporter)
+- [Documentación oficial de Grafana](https://grafana.com/docs/)
+- [Documentación de Node Exporter](https://github.com/prometheus/node_exporter)
 - [Dashboards de la comunidad](https://grafana.com/grafana/dashboards/)
 
-## 馃 Contribuciones
+## Contribuciones
 
 Las contribuciones son bienvenidas. Para cambios importantes:
 
@@ -176,10 +176,10 @@ Las contribuciones son bienvenidas. Para cambios importantes:
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 馃搫 Licencia
+##  Licencia
 
-Este proyecto est谩 bajo la Licencia MIT. Ver el archivo `LICENSE` para m谩s detalles.
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
-## 鈿狅笍 Disclaimer
+##  Disclaimer
 
-脷salo bajo tu propia responsabilidad. Siempre haz respaldos antes de ejecutar scripts de instalaci贸n autom谩tica.
+Usalo bajo tu propia responsabilidad. Siempre haz respaldos antes de ejecutar scripts de instalación automática.
